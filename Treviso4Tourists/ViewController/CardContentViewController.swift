@@ -26,8 +26,7 @@ class CardContentViewController: UIViewController {
     @IBOutlet weak var shareView: UIView!
     @IBOutlet weak var shareImage: UIImageView!
     @IBOutlet weak var shareLabel: UILabel!
-    @IBOutlet weak var viewUnderScroll: UIView!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var viewFDV: UIView!
     
     
     override func viewDidLoad() {
@@ -36,7 +35,8 @@ class CardContentViewController: UIViewController {
         
         setupViews()
         
-        //globalDetailViewController.changeScrollViewHeight(self.viewUnderScroll.frame.he)
+        let getid = getID().passID()
+        setCardContent(cardID: getid)
     }
     
     override func didReceiveMemoryWarning() {
@@ -47,10 +47,21 @@ class CardContentViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        setupViews()
+        
         let getid = getID().passID()
         setCardContent(cardID: getid)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        setupViews()
+        let getid = getID().passID()
+        setCardContent(cardID: getid)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        globalDetailViewController.changeScrollViewHeight(viewFDV.frame.size.height + 30.0 + (UIScreen.main.bounds.width - 60) * 1.2)
     }
     
     func setupViews() {
@@ -82,6 +93,8 @@ class CardContentViewController: UIViewController {
         self.firstParagraphCL.text = firstParagraphCC[cardID]
         self.secondParagraphCL.text = secondParagraphCC[cardID]
         self.imageContent.image = UIImage(named: imageCC[cardID])
+        
+        globalDetailViewController.changeScrollViewHeight(viewFDV.frame.size.height + 30.0 + (UIScreen.main.bounds.width - 60) * 1.2)
     }
     
 }

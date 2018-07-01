@@ -18,6 +18,7 @@ internal class DetailViewController: UIViewController {
     var card: Card!
     var delegate: CardDelegate?
     var isFullscreen = false
+    var heightFSV = CGFloat()
     
     let blackBackgroundView = UIView()
     let zoomImageView = UIImageView()
@@ -74,8 +75,15 @@ internal class DetailViewController: UIViewController {
         
     }
     
+    func callingFromCD() -> DetailViewController {
+        return self
+    }
+    
     func changeScrollViewHeight(_ height: CGFloat) {
-        self.scrollView.frame.size.height = height
+        print(height)
+        self.scrollView.contentSize.height = height
+        print(self.scrollView.contentSize.height)
+        print("fatto")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -102,7 +110,7 @@ internal class DetailViewController: UIViewController {
                                   width: scrollView.frame.width,
                                   height: detail.frame.height)
              
-            scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: 1500)
+            scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: 0)
             
             
             xButton.frame = CGRect (x: scrollView.frame.maxX - 20 - 40,
@@ -328,6 +336,22 @@ class XButton: UIButton {
     
 }
 
+
+extension String {
+    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
+        
+        return ceil(boundingBox.height)
+    }
+    
+    func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
+        
+        return ceil(boundingBox.width)
+    }
+}
 
 
 

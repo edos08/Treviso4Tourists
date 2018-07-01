@@ -65,7 +65,7 @@ class ReadMoreViewController: UIViewController, UICollectionViewDelegate, UIColl
         setupScrollView()
         setupFirstViews()
         
-        //inOther = true
+        inOther = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -122,7 +122,7 @@ class ReadMoreViewController: UIViewController, UICollectionViewDelegate, UIColl
             addressLabel.textColor = UIColor.black
             segmentedControl.tintColor = UIColor(red: 20.0/255.0, green: 38.0/255.0, blue: 52.0/255.0, alpha: 1.0)
         }
-        //inOther = true
+        inOther = true
     }
     
     @objc func secondImage() {

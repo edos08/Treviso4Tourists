@@ -22,6 +22,8 @@ var fromMore:Bool = false
 var inHome:Bool = true
 var fromHome:Bool = false
 
+var didTouchCard: [Int] = []
+
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var BoWSuperview: UIView!
@@ -43,8 +45,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             DarkMode = x
         }
         
+        didTouchCard = []
+        
         for _ in 0...cardTitle.count - 1 {
             firstTimes.append(0)
+            didTouchCard.append(0)
         }
         
         self.title = "Best of Week"
@@ -92,8 +97,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             UIApplication.shared.statusBarStyle = .lightContent
             BoWSuperview?.backgroundColor = UIColor(red: 20.0/255.0, green: 38.0/255.0, blue: 52.0/255.0, alpha: 1.0)
             if inOther {
+                didTouchCard = []
                 for index in 0...firstTimes.count - 1 {
                     firstTimes[index] = 0
+                    didTouchCard.append(0)
                 }
                 cardCollectionView.reloadData()
                 inOther = false
