@@ -12,7 +12,7 @@
 import UIKit
 
 var globalCardID:Int = 0
-var globalDetailViewController:UIViewController = UIViewController()
+var globalDetailViewController: DetailViewController = DetailViewController()
 
 @objc public protocol CardDelegate {
     

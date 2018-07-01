@@ -26,6 +26,8 @@ class CardContentViewController: UIViewController {
     @IBOutlet weak var shareView: UIView!
     @IBOutlet weak var shareImage: UIImageView!
     @IBOutlet weak var shareLabel: UILabel!
+    @IBOutlet weak var viewUnderScroll: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     
     override func viewDidLoad() {
@@ -33,6 +35,8 @@ class CardContentViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         setupViews()
+        
+        //globalDetailViewController.changeScrollViewHeight(self.viewUnderScroll.frame.he)
     }
     
     override func didReceiveMemoryWarning() {

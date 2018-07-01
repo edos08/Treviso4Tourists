@@ -74,6 +74,9 @@ internal class DetailViewController: UIViewController {
         
     }
     
+    func changeScrollViewHeight(_ height: CGFloat) {
+        self.scrollView.frame.size.height = height
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         scrollView.addSubview(card.backgroundIV)
