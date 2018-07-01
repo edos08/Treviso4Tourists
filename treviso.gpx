@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<gpx
+xmlns="http://www.topografix.com/GPX/1/1"
+xmlns:gpxx = "http://www.garmin.com/xmlschemas/GpxExtensions/v3"
+xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd
+http://www.garmin.com/xmlschemas/GpxExtensions/v3
+http://www8.garmin.com/xmlschemas/GpxExtensions/v3/GpxExtensionsv3.xsd"
+version="1.1"
+creator="gpx-poi.com">
+   <wpt lat="45.667550" lon="12.236645">
+      <time>2018-07-01T21:44:08Z</time>
+      <name>Treviso</name>
+      <extensions>
+         <gpxx:WaypointExtension>
+            <gpxx:Address>
+               <gpxx:City>Treviso</gpxx:City>
+               <gpxx:State>Italy</gpxx:State>
+               <gpxx:Country>IT</gpxx:Country>
+               <gpxx:PostalCode>31100</gpxx:PostalCode>
+            </gpxx:Address>
+         </gpxx:WaypointExtension>
+      </extensions>
+   </wpt>
+</gpx>

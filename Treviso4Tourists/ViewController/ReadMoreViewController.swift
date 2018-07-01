@@ -313,6 +313,7 @@ class ReadMoreViewController: UIViewController, UICollectionViewDelegate, UIColl
         let segment = UISegmentedControl()
         segment.insertSegment(withTitle: "Descrizione", at: 0, animated: false)
         segment.insertSegment(withTitle: "Info e Orari", at: 1, animated: false)
+        segment.insertSegment(withTitle: "Foto", at: 2, animated: false)
         segment.selectedSegmentIndex = 0
         segment.backgroundColor = UIColor.clear
         segment.tintColor = UIColor.white

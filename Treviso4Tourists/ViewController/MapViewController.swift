@@ -139,12 +139,28 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     func setTime(time: Double) {
         if time > 60 {
-            self.timeLabel.text = "Tempo: \(Int(round(time/60))) min"
-            self.timeLabel.sizeToFit()
-            UIView.animate(withDuration: 0.3) {
-                self.timeView.frame.size = CGSize(width: self.timeLabel.frame.width + 30, height: 40)
-                self.timeImage.alpha = 0
-                self.timeLabel.alpha = 1
+            var minutes = Int(round(time/60))
+            if minutes < 60 {
+                self.timeLabel.text = "Tempo: \(minutes) min"
+                self.timeLabel.sizeToFit()
+                UIView.animate(withDuration: 0.3) {
+                    self.timeView.frame.size = CGSize(width: self.timeLabel.frame.width + 30, height: 40)
+                    self.timeImage.alpha = 0
+                    self.timeLabel.alpha = 1
+                }
+            } else if minutes > 60 {
+                var hour = 0
+                while minutes > 60 {
+                    minutes -= 60
+                    hour += 1
+                }
+                self.timeLabel.text = "Tempo: \(hour) h \(minutes) min"
+                self.timeLabel.sizeToFit()
+                UIView.animate(withDuration: 0.3) {
+                    self.timeView.frame.size = CGSize(width: self.timeLabel.frame.width + 30, height: 40)
+                    self.timeImage.alpha = 0
+                    self.timeLabel.alpha = 1
+                }
             }
         } else {
             self.timeLabel.text = "Tempo: \(Int(round(time))) sec"
