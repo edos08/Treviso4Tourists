@@ -9,8 +9,8 @@
 import UIKit
 
 var titleCC:[String] = ["Lorem Ipsum", "Lorem Ipsum", "Lorem Ipsum"]
-var firstParagraphCC:[String] = ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum.", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum.", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum."]
-var secondParagraphCC:[String] = ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum. In sollicitudin, odio convallis cursus finibus, tortor risus fermentum arcu, at accumsan orci nibh at mi.", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum. In sollicitudin, odio convallis cursus finibus, tortor risus fermentum arcu, at accumsan orci nibh at mi.", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum. In sollicitudin, odio convallis cursus finibus, tortor risus fermentum arcu, at accumsan orci nibh at mi."]
+var firstParagraphCC:[String] = ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum. ", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum.", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum."]
+var secondParagraphCC:[String] = ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum. In sollicitudin, odio convallis cursus finibus, tortor risus fermentum arcu, at accumsan orci nibh at mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum. In sollicitudin, odio convallis cursus finibus, tortor risus fermentum arcu, at accumsan orci nibh at mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum. In sollicitudin, odio convallis cursus finibus, tortor risus fermentum arcu, at accumsan orci nibh at mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum. In sollicitudin, odio convallis cursus finibus, tortor risus fermentum arcu, at accumsan orci nibh at mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum. In sollicitudin, odio convallis cursus finibus, tortor risus fermentum arcu, at accumsan orci nibh at mi. ", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum. In sollicitudin, odio convallis cursus finibus, tortor risus fermentum arcu, at accumsan orci nibh at mi.", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices aliquam purus, eu euismod elit tempus condimentum. In sollicitudin, odio convallis cursus finibus, tortor risus fermentum arcu, at accumsan orci nibh at mi."]
 var imageCC:[String] = ["castello_conegliano_notte", "alpago_content", "dama_castellana_content"]
 
 class CardContentViewController: UIViewController {
@@ -20,28 +20,19 @@ class CardContentViewController: UIViewController {
     @IBOutlet weak var firstParagraphCL: UILabel!
     @IBOutlet weak var imageContent: UIImageView!
     @IBOutlet weak var secondParagraphCL: UILabel!
-    @IBOutlet var gotoSite: UIButton!
-    @IBOutlet var readAll: UIButton!
+    @IBOutlet weak var favoritesView: UIView!
+    @IBOutlet weak var favoritesImage: UIImageView!
+    @IBOutlet weak var favoritesLabel: UILabel!
+    @IBOutlet weak var shareView: UIView!
+    @IBOutlet weak var shareImage: UIImageView!
+    @IBOutlet weak var shareLabel: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        if DarkMode {
-            CardContentView.backgroundColor = UIColor(red: 20.0/255.0, green: 38.0/255.0, blue: 52.0/255.0, alpha: 1.0)
-            titleCL.textColor = UIColor(red: 189.0/255.0, green: 199.0/255.0, blue: 193.0/255.0, alpha: 1.0)
-            firstParagraphCL.textColor = UIColor(red: 189.0/255.0, green: 199.0/255.0, blue: 193.0/255.0, alpha: 1.0)
-            secondParagraphCL.textColor = UIColor(red: 189.0/255.0, green: 199.0/255.0, blue: 193.0/255.0, alpha: 1.0)
-            gotoSite.tintColor = UIColor(red: 189.0/255.0, green: 199.0/255.0, blue: 193.0/255.0, alpha: 1.0)
-            readAll.tintColor = UIColor(red: 189.0/255.0, green: 199.0/255.0, blue: 193.0/255.0, alpha: 1.0)
-        } else {
-            CardContentView.backgroundColor = UIColor.white
-            titleCL.textColor = UIColor.black
-            firstParagraphCL.textColor = UIColor.black
-            secondParagraphCL.textColor = UIColor.black
-            gotoSite.tintColor = UIColor.blue
-            readAll.tintColor = UIColor.blue
-        }
+        setupViews()
     }
     
     override func didReceiveMemoryWarning() {
@@ -55,20 +46,30 @@ class CardContentViewController: UIViewController {
         let getid = getID().passID()
         setCardContent(cardID: getid)
         
+        setupViews()
+    }
+    
+    func setupViews() {
+        favoritesView.layer.cornerRadius = 6
+        shareView.layer.cornerRadius = 6
         if DarkMode {
             CardContentView.backgroundColor = UIColor(red: 20.0/255.0, green: 38.0/255.0, blue: 52.0/255.0, alpha: 1.0)
             titleCL.textColor = UIColor(red: 189.0/255.0, green: 199.0/255.0, blue: 193.0/255.0, alpha: 1.0)
             firstParagraphCL.textColor = UIColor(red: 189.0/255.0, green: 199.0/255.0, blue: 193.0/255.0, alpha: 1.0)
             secondParagraphCL.textColor = UIColor(red: 189.0/255.0, green: 199.0/255.0, blue: 193.0/255.0, alpha: 1.0)
-            gotoSite.tintColor = UIColor(red: 189.0/255.0, green: 199.0/255.0, blue: 193.0/255.0, alpha: 1.0)
-            readAll.tintColor = UIColor(red: 189.0/255.0, green: 199.0/255.0, blue: 193.0/255.0, alpha: 1.0)
+            favoritesLabel.textColor = UIColor.white
+            shareLabel.textColor = UIColor.white
+            favoritesImage.image = UIImage(named: "favorite-empty-white")
+            shareImage.image = UIImage(named: "share-white")
         } else {
             CardContentView.backgroundColor = UIColor.white
             titleCL.textColor = UIColor.black
             firstParagraphCL.textColor = UIColor.black
             secondParagraphCL.textColor = UIColor.black
-            gotoSite.tintColor = UIColor.blue
-            readAll.tintColor = UIColor.blue
+            favoritesLabel.textColor = UIColor(red: 0.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            shareLabel.textColor = UIColor(red: 0.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            favoritesImage.image = UIImage(named: "favorite-empty")
+            shareImage.image = UIImage(named: "share")
         }
     }
     
@@ -80,3 +81,4 @@ class CardContentViewController: UIViewController {
     }
     
 }
+

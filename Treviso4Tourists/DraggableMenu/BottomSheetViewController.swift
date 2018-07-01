@@ -21,12 +21,18 @@ class BottomSheetViewController: UIViewController {
     @IBOutlet weak var line: UIView!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var indicationiOSMaps: UIButton!
+    @IBOutlet weak var favoriteView: UIView!
+    @IBOutlet weak var favoriteImage: UIImageView!
+    @IBOutlet weak var favoriteLabel: UILabel!
+    @IBOutlet weak var shareView: UIView!
+    @IBOutlet weak var shareImage: UIImageView!
+    @IBOutlet weak var shareLabel: UILabel!
     
     var fullView: CGFloat {
         if homeTapped {
-            return CGFloat(UIScreen.main.bounds.height - 364)
+            return CGFloat(UIScreen.main.bounds.height - 454)
         } else {
-            return CGFloat(UIScreen.main.bounds.height - 300)
+            return CGFloat(UIScreen.main.bounds.height - 390)
         }
     }
     var partialView: CGFloat {
@@ -166,6 +172,21 @@ class BottomSheetViewController: UIViewController {
         right.addTarget(self, action: #selector(resetView), for: .touchUpInside)
         indicationiOSMaps.addTarget(self, action: #selector(openMapForPlace), for: .touchUpInside)
         view.clipsToBounds = true
+        favoriteView.layer.cornerRadius = 6
+        shareView.layer.cornerRadius = 6
+        if DarkMode {
+            favoriteView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.3)
+            shareView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.3)
+            favoriteLabel.textColor = UIColor.white
+            shareLabel.textColor = UIColor.white
+            favoriteImage.image = UIImage(named: "favorite-empty-white")
+            shareImage.image = UIImage(named: "share-white")
+        } else {
+            favoriteLabel.textColor = UIColor(red: 0.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            shareLabel.textColor = UIColor(red: 0.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            favoriteImage.image = UIImage(named: "favorite-empty")
+            shareImage.image = UIImage(named: "share")
+        }
     }
     
     func prepareBackgroundView(){

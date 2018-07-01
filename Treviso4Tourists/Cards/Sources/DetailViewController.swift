@@ -99,7 +99,7 @@ internal class DetailViewController: UIViewController {
                                   width: scrollView.frame.width,
                                   height: detail.frame.height)
              
-            scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: detail.frame.maxY)
+            scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: 1500)
             
             
             xButton.frame = CGRect (x: scrollView.frame.maxX - 20 - 40,
