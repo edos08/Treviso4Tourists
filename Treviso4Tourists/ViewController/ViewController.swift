@@ -91,10 +91,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             self.navigationController?.navigationBar.barTintColor = UIColor(red: 20.0/255.0, green: 38.0/255.0, blue: 52.0/255.0, alpha: 1.0)
             UIApplication.shared.statusBarStyle = .lightContent
             BoWSuperview?.backgroundColor = UIColor(red: 20.0/255.0, green: 38.0/255.0, blue: 52.0/255.0, alpha: 1.0)
-            for index in 0...firstTimes.count - 1 {
-                firstTimes[index] = 0
+            if inOther {
+                for index in 0...firstTimes.count - 1 {
+                    firstTimes[index] = 0
+                }
+                cardCollectionView.reloadData()
+                inOther = false
             }
-            cardCollectionView.reloadData()
         } else {
             self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
             self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
@@ -102,10 +105,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             self.navigationController?.navigationBar.barTintColor = UIColor.white
             UIApplication.shared.statusBarStyle = .default
             BoWSuperview?.backgroundColor = UIColor.white
-            for index in 0...firstTimes.count - 1 {
-                firstTimes[index] = 0
+            if inOther {
+                for index in 0...firstTimes.count - 1 {
+                    firstTimes[index] = 0
+                }
+                cardCollectionView.reloadData()
+                inOther = false
             }
-            cardCollectionView.reloadData()
         }
     }
     
@@ -135,7 +141,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardsCollectionViewCell", for: indexPath) as! CardCollectionViewCell
         
         if firstTimes[indexPath.row] == 0 {
-            
+            cell.CardView.subviews.forEach({ $0.removeFromSuperview() })
+            print("ho tolto tutto")
             let card = CardHighlight(frame: CGRect(x: 30, y: 80, width: (UIScreen.main.bounds.width - 60) , height: (UIScreen.main.bounds.width - 60) * 1.2))
             print(Int(UIScreen.main.bounds.width - 60))
             
@@ -158,27 +165,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
             card.IconImage = self.iconImg
             
-            if DarkMode {
-                card.shadowColor = UIColor(red: 20.0/255.0, green: 38.0/255.0, blue: 52.0/255.0, alpha: 1.0)
-            } else {
-                card.shadowColor = UIColor.white
-            }
-            
             let cardContentVC = storyboard!.instantiateViewController(withIdentifier: "CardContent")
             card.shouldPresent(cardContentVC, from: self, fullscreen: false)
             //card.viewofcards = cell.CardView
             
             cell.CardView.addSubview(card)
-            
-            if DarkMode {
-                card.actionBtn.titleLabel?.textColor = UIColor(red: 189.0/255.0, green: 199.0/255.0, blue: 193.0/255.0, alpha: 1.0)
-                card.actionBtn.backgroundColor = UIColor(red: 20.0/255.0, green: 38.0/255.0, blue: 52.0/255.0, alpha: 1.0)
-                card.actionBtn.layer.backgroundColor = UIColor(red: 20.0/255.0, green: 38.0/255.0, blue: 52.0/255.0, alpha: 1.0).cgColor
-            } else {
-                card.actionBtn.titleLabel?.textColor = UIColor(red: 0.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-                card.actionBtn.backgroundColor = UIColor.white
-                card.actionBtn.layer.backgroundColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1.0).cgColor
-            }
             
             self.firstTimes[indexPath.row] = 1
         }

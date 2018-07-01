@@ -41,7 +41,13 @@ internal class DetailViewController: UIViewController {
         } 
 
         self.snap = UIScreen.main.snapshotView(afterScreenUpdates: true)
+        if DarkMode {
+            blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark ))
+        } else {
+            blurView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight ))
+        }
         self.view.addSubview(blurView)
+        
         self.view.addSubview(scrollView)
         
         if let detail = detailView {

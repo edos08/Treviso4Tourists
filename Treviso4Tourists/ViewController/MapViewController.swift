@@ -131,6 +131,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             self.mapView.add(route.polyline, level: .aboveRoads)
             let rect = route.polyline.boundingMapRect
             self.mapView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+            self.mapView.setVisibleMapRect(rect, edgePadding: UIEdgeInsetsMake(40.0, 40.0, 40.0, 40.0), animated: true)
             self.setTime(time: route.expectedTravelTime)
             self.setDistance(distance: route.distance)
         })
@@ -139,15 +140,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     func setTime(time: Double) {
         if time > 60 {
             self.timeLabel.text = "Tempo: \(Int(round(time/60))) min"
+            self.timeLabel.sizeToFit()
             UIView.animate(withDuration: 0.3) {
-                self.timeView.frame.size = CGSize(width: 160, height: 40)
+                self.timeView.frame.size = CGSize(width: self.timeLabel.frame.width + 30, height: 40)
                 self.timeImage.alpha = 0
                 self.timeLabel.alpha = 1
             }
         } else {
-            self.timeLabel.text = "Tempo: \(round(time)) sec"
+            self.timeLabel.text = "Tempo: \(Int(round(time))) sec"
+            self.timeLabel.sizeToFit()
             UIView.animate(withDuration: 0.3) {
-                self.timeView.frame.size = CGSize(width: 160, height: 40)
+                self.timeView.frame.size = CGSize(width: self.timeLabel.frame.width + 30, height: 40)
                 self.timeImage.alpha = 0
                 self.timeLabel.alpha = 1
             }
@@ -157,15 +160,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     func setDistance(distance: Double) {
         if distance >= 1000 {
             self.distanceLabel.text = "Distanza: \(round(distance/100)/10) Km"
+            self.distanceLabel.sizeToFit()
             UIView.animate(withDuration: 0.3) {
-                self.distanceView.frame.size = CGSize(width: 160, height: 40)
+                self.distanceView.frame.size = CGSize(width: self.distanceLabel.frame.width + 30, height: 40)
                 self.distanceImage.alpha = 0
                 self.distanceLabel.alpha = 1
             }
         } else {
-            self.distanceLabel.text = "Distanza: \(distance) m"
+            self.distanceLabel.text = "Distanza: \(Int(distance)) m"
+            self.distanceLabel.sizeToFit()
             UIView.animate(withDuration: 0.3) {
-                self.distanceView.frame.size = CGSize(width: 160, height: 40)
+                self.distanceView.frame.size = CGSize(width: self.distanceLabel.frame.width + 30, height: 40)
                 self.distanceImage.alpha = 0
                 self.distanceLabel.alpha = 1
             }
@@ -292,7 +297,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.frame = CGRect(x: 15, y: 10, width: 140, height: 20)
+        label.frame = CGRect(x: 15, y: 10, width: 120, height: 20)
         label.text = "Tempo: -- min"
         if DarkMode {
             label.textColor = UIColor.white
@@ -408,9 +413,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             mapViewTypeButton2.setTitleColor(UIColor.white, for: .normal)
             mapViewTypeButton3.setTitleColor(UIColor.white, for: .normal)
         } else {
-            mapViewTypeButton1.setTitleColor(UIColor.black, for: .normal)
-            mapViewTypeButton2.setTitleColor(UIColor.black, for: .normal)
-            mapViewTypeButton3.setTitleColor(UIColor.black, for: .normal)
+            mapViewTypeButton1.setTitleColor(UIColor(red: 0.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0), for: .normal)
+            mapViewTypeButton2.setTitleColor(UIColor(red: 0.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0), for: .normal)
+            mapViewTypeButton3.setTitleColor(UIColor(red: 0.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0), for: .normal)
         }
         mapViewTypeButton1.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         mapViewTypeButton2.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
@@ -461,7 +466,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeMapViewType)))
         
         UIView.animate(withDuration: 0.2, animations: {
-            self.mapViewType.frame = CGRect(x: UIScreen.main.bounds.width - 190, y: self.startingFrame.origin.y, width: 170, height: 130)
+            self.mapViewType.frame = CGRect(x: UIScreen.main.bounds.width - 175, y: self.startingFrame.origin.y, width: 155, height: 130)
             self.mapViewTypeButton1.frame = CGRect(x: 60, y: 10, width: self.mapViewType.frame.width - 50, height: 30)
             self.mapViewTypeButton2.frame = CGRect(x: 60, y: 50, width: self.mapViewType.frame.width - 50, height: 30)
             self.mapViewTypeButton3.frame = CGRect(x: 60, y: 90, width: self.mapViewType.frame.width - 50, height: 30)

@@ -154,7 +154,10 @@ class BottomSheetViewController: UIViewController {
             right.backgroundColor = UIColor(red: 20.0/255.0, green: 38.0/255.0, blue: 52.0/255.0, alpha: 1.0)
             indicationiOSMaps.backgroundColor = UIColor(red: 0.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0)
             indicationiOSMaps.setAttributedTitle(NSAttributedString(string: ("portami al posto").uppercased(), attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 16, weight: .black), NSAttributedStringKey.foregroundColor : UIColor.white]), for: .normal)
-            left.setImage(UIImage(named: "walking-white"), for: .normal)
+            let origImage = UIImage(named: "walking-white")
+            let tintedImage = origImage?.withRenderingMode(.alwaysTemplate)
+            left.setImage(tintedImage, for: .normal)
+            left.tintColor = UIColor.white
             right.setImage(UIImage(named: "car-white"), for: .normal)
         }
         left.imageView?.contentMode = .scaleAspectFit

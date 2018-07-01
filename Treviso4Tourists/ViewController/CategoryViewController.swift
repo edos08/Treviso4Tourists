@@ -81,10 +81,13 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
             UIApplication.shared.statusBarStyle = .lightContent
             catsuperview?.backgroundColor = UIColor(red: 20.0/255.0, green: 38.0/255.0, blue: 52.0/255.0, alpha: 1.0)
             self.modalityView.setBackgroundImage(UIImage(named: "cellview-light"), for: .normal)
-            for index in 0...firstTimes.count - 1 {
-                firstTimes[index] = 0
+            if inOther {
+                for index in 0...firstTimes.count - 1 {
+                    firstTimes[index] = 0
+                }
+                collectionView.reloadData()
+                inOther = false
             }
-            collectionView.reloadData()
         } else {
             self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black]
             self.navigationController?.navigationBar.tintColor = UIColor(named: "#006DF0")
@@ -92,10 +95,13 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
             UIApplication.shared.statusBarStyle = .default
             catsuperview?.backgroundColor = UIColor.white
             self.modalityView.setBackgroundImage(UIImage(named: "cellview"), for: .normal)
-            for index in 0...firstTimes.count - 1 {
-                firstTimes[index] = 0
+            if inOther {
+                for index in 0...firstTimes.count - 1 {
+                    firstTimes[index] = 0
+                }
+                collectionView.reloadData()
+                inOther = false
             }
-            collectionView.reloadData()
         }
     }
     
@@ -107,6 +113,8 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath) as! CategoryCollectionViewCell
         
         if firstTimes[indexPath.row] == 0 {
+            cell.CardView.subviews.forEach({ $0.removeFromSuperview() })
+            print("ho tolto tutto")
             let card = CardHighlight(frame: CGRect(x: 30, y: 80, width: (UIScreen.main.bounds.width - 60) , height: (UIScreen.main.bounds.width - 60) * 1.2))
             print(Int(UIScreen.main.bounds.width - 60))
             
@@ -131,7 +139,6 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
             
             cell.CardView.addSubview(card)
             self.firstTimes[indexPath.row] = 1
-            
             
         }
         if DarkMode {
