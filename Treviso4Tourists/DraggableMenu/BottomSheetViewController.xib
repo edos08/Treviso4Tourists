@@ -162,7 +162,6 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="Xr8-Uc-XgN"/>
                                 <constraint firstAttribute="height" constant="60" id="p2Z-ac-2ul"/>
                             </constraints>
                         </stackView>

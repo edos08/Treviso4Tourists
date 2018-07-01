@@ -169,6 +169,13 @@ class ReadMoreViewController: UIViewController, UICollectionViewDelegate, UIColl
         contentView.addSubview(imageCollectionView)
         contentView.addSubview(imageDescription)
         contentView.addSubview(secondParagraph)
+        contentView.addSubview(favoritesView)
+        contentView.addSubview(shareView)
+        favoritesView.addSubview(favoritesImage)
+        favoritesView.addSubview(favoritesLabel)
+        shareView.addSubview(shareImage)
+        shareView.addSubview(shareLabel)
+        
         
         principalImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         principalImage.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
@@ -211,7 +218,36 @@ class ReadMoreViewController: UIViewController, UICollectionViewDelegate, UIColl
         secondParagraph.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         secondParagraph.topAnchor.constraint(equalTo: imageDescription.bottomAnchor, constant: 20.0).isActive = true
         secondParagraph.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: (UIScreen.main.bounds.width - 60)/(UIScreen.main.bounds.width)).isActive = true
-        secondParagraph.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30.0).isActive = true
+        
+        favoritesView.topAnchor.constraint(equalTo: secondParagraph.bottomAnchor, constant: 20.0).isActive = true
+        favoritesView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30.0).isActive = true
+        favoritesView.heightAnchor.constraint(equalToConstant: 60.0).isActive = true
+        favoritesView.widthAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 70)/2).isActive = true
+        favoritesView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30.0).isActive = true
+        
+        shareView.topAnchor.constraint(equalTo: secondParagraph.bottomAnchor, constant: 20.0).isActive = true
+        shareView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30.0).isActive = true
+        shareView.heightAnchor.constraint(equalToConstant: 60.0).isActive = true
+        shareView.widthAnchor.constraint(equalToConstant: (UIScreen.main.bounds.width - 70)/2).isActive = true
+        shareView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30.0).isActive = true
+        
+        favoritesImage.heightAnchor.constraint(equalToConstant: 25.0).isActive = true
+        favoritesImage.topAnchor.constraint(equalTo: favoritesView.topAnchor, constant: 9.0).isActive = true
+        favoritesImage.leadingAnchor.constraint(equalTo: favoritesView.leadingAnchor).isActive = true
+        favoritesImage.trailingAnchor.constraint(equalTo: favoritesView.trailingAnchor).isActive = true
+        
+        favoritesLabel.topAnchor.constraint(equalTo: favoritesImage.bottomAnchor, constant: 3.0).isActive = true
+        favoritesLabel.leadingAnchor.constraint(equalTo: favoritesView.leadingAnchor).isActive = true
+        favoritesLabel.trailingAnchor.constraint(equalTo: favoritesView.trailingAnchor).isActive = true
+        
+        shareImage.heightAnchor.constraint(equalToConstant: 25.0).isActive = true
+        shareImage.topAnchor.constraint(equalTo: shareView.topAnchor, constant: 9.0).isActive = true
+        shareImage.leadingAnchor.constraint(equalTo: shareView.leadingAnchor).isActive = true
+        shareImage.trailingAnchor.constraint(equalTo: shareView.trailingAnchor).isActive = true
+        
+        shareLabel.topAnchor.constraint(equalTo: shareImage.bottomAnchor, constant: 3.0).isActive = true
+        shareLabel.leadingAnchor.constraint(equalTo: shareView.leadingAnchor).isActive = true
+        shareLabel.trailingAnchor.constraint(equalTo: shareView.trailingAnchor).isActive = true
     }
     
     func setupSecondViews() {
@@ -222,6 +258,12 @@ class ReadMoreViewController: UIViewController, UICollectionViewDelegate, UIColl
         imageCollectionView.removeFromSuperview()
         imageDescription.removeFromSuperview()
         secondParagraph.removeFromSuperview()
+        favoritesView.removeFromSuperview()
+        favoritesImage.removeFromSuperview()
+        favoritesLabel.removeFromSuperview()
+        shareView.removeFromSuperview()
+        shareImage.removeFromSuperview()
+        shareLabel.removeFromSuperview()
         
         contentView.addSubview(scheduleTitleLabel)
         contentView.addSubview(scheduleLabel)
@@ -362,6 +404,83 @@ class ReadMoreViewController: UIViewController, UICollectionViewDelegate, UIColl
         label.textColor = UIColor.black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    let stackView: UIStackView = {
+        let stackview = UIStackView()
+        stackview.distribution = .fillEqually
+        stackview.spacing = 10.0
+        stackview.backgroundColor = UIColor.white
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        return stackview
+    }()
+    
+    let favoritesView: UIView = {
+        let favview = UIView()
+        favview.backgroundColor = UIColor(red: 154/255, green: 154/255, blue: 154/255, alpha: 0.3)
+        favview.layer.cornerRadius = 6
+        favview.translatesAutoresizingMaskIntoConstraints = false
+        return favview
+    }()
+    
+    let favoritesImage: UIImageView = {
+        let favImage = UIImageView()
+        favImage.contentMode = .scaleAspectFit
+        favImage.translatesAutoresizingMaskIntoConstraints = false
+        if DarkMode {
+            favImage.image = UIImage(named: "favorite-empty-white")
+        } else {
+            favImage.image = UIImage(named: "favorite-empty")
+        }
+        return favImage
+    }()
+    
+    let favoritesLabel: UILabel = {
+        let favLabel = UILabel()
+        favLabel.text = "Aggiungi a Preferiti"
+        favLabel.textAlignment = .center
+        if DarkMode {
+            favLabel.textColor = UIColor.white
+        } else {
+            favLabel.textColor = UIColor(red: 0.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        }
+        favLabel.font = UIFont.systemFont(ofSize: 14.0)
+        favLabel.translatesAutoresizingMaskIntoConstraints = false
+        return favLabel
+    }()
+    
+    let shareView: UIView = {
+        let shareview = UIView()
+        shareview.backgroundColor = UIColor(red: 154/255, green: 154/255, blue: 154/255, alpha: 0.3)
+        shareview.layer.cornerRadius = 6
+        shareview.translatesAutoresizingMaskIntoConstraints = false
+        return shareview
+    }()
+    
+    let shareImage: UIImageView = {
+        let shareImg = UIImageView()
+        shareImg.contentMode = .scaleAspectFit
+        shareImg.translatesAutoresizingMaskIntoConstraints = false
+        if DarkMode {
+            shareImg.image = UIImage(named: "share-white")
+        } else {
+            shareImg.image = UIImage(named: "share")
+        }
+        return shareImg
+    }()
+    
+    let shareLabel: UILabel = {
+        let shareLbl = UILabel()
+        shareLbl.text = "Condividi"
+        shareLbl.textAlignment = .center
+        if DarkMode {
+            shareLbl.textColor = UIColor.white
+        } else {
+            shareLbl.textColor = UIColor(red: 0.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        }
+        shareLbl.font = UIFont.systemFont(ofSize: 14.0)
+        shareLbl.translatesAutoresizingMaskIntoConstraints = false
+        return shareLbl
     }()
     
     let scheduleTitleLabel: UILabel = {
