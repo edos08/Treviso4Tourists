@@ -23,6 +23,7 @@ internal class DetailViewController: UIViewController {
     let blackBackgroundView = UIView()
     let zoomImageView = UIImageView()
     let doneButton = UIButton()
+    var startingFrame = CGRect()
     var startingImage = UIImageView()
     
     fileprivate var xButton = XButton()
@@ -80,10 +81,11 @@ internal class DetailViewController: UIViewController {
     }
     
     func changeScrollViewHeight(_ height: CGFloat) {
-        print(height)
         self.scrollView.contentSize.height = height
-        print(self.scrollView.contentSize.height)
-        print("fatto")
+    }
+    
+    func passCGRectToDVC(frame: CGRect, imageView: UIImageView) {
+        zoomInImage(stFrame: frame, imageView: imageView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -178,64 +180,57 @@ internal class DetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    @objc func zoomInImage(_ sender:UIImageView) {
+    @objc func zoomInImage(stFrame:CGRect, imageView: UIImageView) {
+            
+        self.startingFrame = stFrame
+        self.startingImage = imageView
+            
+        self.blackBackgroundView.frame = self.view.frame
+        self.blackBackgroundView.backgroundColor = UIColor.black
+        self.blackBackgroundView.alpha = 0
+        self.blackBackgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.zoomOutImage)))
+        self.view.addSubview(self.blackBackgroundView)
+            
+        self.doneButton.frame = CGRect(x: self.view.frame.width - 60, y: 25, width: 60, height: 30)
+        self.doneButton.setTitle("Fine", for: .normal)
+        self.doneButton.setTitleColor(UIColor.white, for: .normal)
+        self.doneButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.zoomOutImage)))
+        self.view.addSubview(self.doneButton)
+        self.doneButton.alpha = 0
+            
+        self.zoomImageView.frame = startingFrame
+        self.zoomImageView.image = startingImage.image
+        self.zoomImageView.contentMode = .scaleAspectFill
+        self.zoomImageView.clipsToBounds = true
+        self.view.addSubview(self.zoomImageView)
         
-        startingImage = sender
+        self.startingImage.alpha = 0
         
-        if let startingFrame = startingImage.superview?.convert(startingImage.frame, to: nil) {
-            
-            //self.startingImage.alpha = 0
-            
-            self.blackBackgroundView.frame = self.view.frame
-            self.blackBackgroundView.backgroundColor = UIColor.black
-            self.blackBackgroundView.alpha = 0
-            self.blackBackgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.zoomOutImage)))
-            self.view.addSubview(self.blackBackgroundView)
-            
-            self.doneButton.frame = CGRect(x: self.view.frame.width - 60, y: 70, width: 60, height: 30)
-            self.doneButton.setTitle("Fine", for: .normal)
-            self.doneButton.setTitleColor(UIColor.white, for: .normal)
-            self.doneButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.zoomOutImage)))
-            self.view.addSubview(self.doneButton)
-            self.doneButton.alpha = 0
-            
-            self.zoomImageView.frame = startingFrame
-            self.zoomImageView.image = self.startingImage.image
-            self.zoomImageView.contentMode = .scaleAspectFill
-            self.zoomImageView.clipsToBounds = true
-            self.view.addSubview(self.zoomImageView)
-            
-            UIView.animate(withDuration: 0.25) {
-                let height = (self.view.frame.width / startingFrame.width) * startingFrame.height
+        UIView.animate(withDuration: 0.25) {
+            let height = (self.view.frame.width / self.startingFrame.width) * self.startingFrame.height
                 
-                let y  = (self.view.frame.height / 2) - (height / 2)
+            let y  = (self.view.frame.height / 2) - (height / 2)
                 
-                //self.navigationController?.isNavigationBarHidden = true
+            self.zoomImageView.frame = CGRect(x: 0, y: y, width: self.view.frame.width, height: height)
                 
-                self.zoomImageView.frame = CGRect(x: 0, y: y, width: self.view.frame.width, height: height)
+            self.blackBackgroundView.alpha = 1
                 
-                self.blackBackgroundView.alpha = 1
-                
-                self.doneButton.alpha = 1
-            }
+            self.doneButton.alpha = 1
         }
         
     }
     
     @objc func zoomOutImage() {
-        if let startingFrame = startingImage.superview?.convert(startingImage.frame, to: nil) {
             UIView.animate(withDuration: 0.25, animations: {
-                //self.navigationController?.isNavigationBarHidden = false
-                self.zoomImageView.frame = startingFrame
+                self.zoomImageView.frame = self.startingFrame
                 self.doneButton.alpha = 0
                 self.blackBackgroundView.alpha = 0
             }) { (didComplete) in
                 self.zoomImageView.removeFromSuperview()
                 self.doneButton.removeFromSuperview()
                 self.blackBackgroundView.removeFromSuperview()
-                //self.midImage.alpha = 1
+                self.startingImage.alpha = 1
             }
-        }
         
     }
 }

@@ -447,7 +447,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b89-wp-uRf">
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b89-wp-uRf">
                                         <rect key="frame" x="16" y="79.5" width="343" height="256"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="256" id="gNz-NA-Sgi"/>

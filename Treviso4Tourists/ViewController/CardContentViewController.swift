@@ -60,6 +60,10 @@ class CardContentViewController: UIViewController {
         setCardContent(cardID: getid)
     }
     
+    @objc func getCGRect(){
+        globalDetailViewController.passCGRectToDVC(frame: (imageContent.superview?.convert(imageContent.frame, to: nil))!, imageView: imageContent)
+    }
+    
     override func viewDidLayoutSubviews() {
         globalDetailViewController.changeScrollViewHeight(viewFDV.frame.size.height + 30.0 + (UIScreen.main.bounds.width - 60) * 1.2)
     }
@@ -93,7 +97,7 @@ class CardContentViewController: UIViewController {
         self.firstParagraphCL.text = firstParagraphCC[cardID]
         self.secondParagraphCL.text = secondParagraphCC[cardID]
         self.imageContent.image = UIImage(named: imageCC[cardID])
-        
+        imageContent.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(getCGRect)))
         globalDetailViewController.changeScrollViewHeight(viewFDV.frame.size.height + 30.0 + (UIScreen.main.bounds.width - 60) * 1.2)
     }
     

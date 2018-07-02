@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:treviso.gpx">
+      location = "group:/Users/Administrator/Desktop/iOS Projects/Treviso4Tourists/Treviso4Tourists/treviso.gpx">
    </FileRef>
    <FileRef
       location = "group:Treviso4Tourists.xcodeproj">
